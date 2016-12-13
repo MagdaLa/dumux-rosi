@@ -1,2 +1,2 @@
 add_subdirectory("1dCylindricalDiffusive")
-add_subdirectory("2dUptakeRichards")
+#add_subdirectory("2dUptakeRichards")
