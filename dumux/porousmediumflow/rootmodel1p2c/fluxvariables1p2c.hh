@@ -242,18 +242,32 @@ protected:
 
         // calculate the pressure gradient
         diffP_ = volVarsI.pressure() - volVarsJ.pressure();
+        
+        // correct the pressure diffrence by the gravitational acceleration
+        if (GET_PARAM_FROM_GROUP(TypeTag, bool, Problem, EnableGravity))
+        {   // calculate the density
+            const Element& elementI = fvGeometry_().neighbors[face().i];
+            const Element& elementJ = fvGeometry_().neighbors[face().j];
+            auto globalPosI = elementI.geometry().center();
+            auto globalPosJ = elementJ.geometry().center();
+            Scalar gravitationalTermI = density_*(problem.gravityAtPos(globalPosI)*globalPosI);
+            Scalar gravitationalTermJ;
+            if (onBoundary_)
+            {
+                gravitationalTermJ = density_*(problem.gravityAtPos(face().ipGlobal)*face().ipGlobal);
+            }
+            else
+            {
+                gravitationalTermJ = density_*(problem.gravityAtPos(globalPosJ)*globalPosJ);
+            }
+            diffP_ -= (gravitationalTermI - gravitationalTermJ);
+        }
+
         // calculate the conc. gradient
         if(useMoles)
             diffC_ = volVarsI.moleFraction(transportCompIdx)*volVarsI.molarDensity() - volVarsJ.moleFraction(transportCompIdx)*volVarsJ.molarDensity();
         else
             diffC_ = volVarsI.massFraction(transportCompIdx)*volVarsI.density() - volVarsJ.massFraction(transportCompIdx)*volVarsJ.density();
-        //TODO Implement gravity
-        // correct the pressure gradient by the gravitational acceleration
-        /*if (GET_PARAM_FROM_GROUP(TypeTag, bool, Problem, EnableGravity))
-        {
-            DUNE_THROW(Dune::NotImplemented, "Gravity");
-        }
-        */
     }
 
     /*!
