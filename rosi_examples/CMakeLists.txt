@@ -1,7 +1,5 @@
 add_subdirectory("1p2c_richards2c")
 add_subdirectory("1p_richards")
 add_subdirectory("RosiRichards2cDiff")
-add_subdirectory("crootbox-constsoil")
-add_subdirectory("crootbox-coupled")
 add_subdirectory("periodic")
 dune_symlink_to_source_files(FILES "grids")
