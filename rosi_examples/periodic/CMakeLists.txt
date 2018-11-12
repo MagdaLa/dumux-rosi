@@ -1,0 +1,3 @@
+dune_symlink_to_source_files(FILES lupine.dgf test_periodic_networkgridmanager.input)
+dune_add_test(SOURCES test_periodic_networkgridmanager.cc)
+set(CMAKE_BUILD_TYPE Release)

@@ -1,3 +1,5 @@
-dune_add_test(SOURCES test_rosiRichards2cDiff.cc)
-dune_symlink_to_source_files(FILES "grids" "test_rosiRichards2cDiff.input")
-#ADD_CUSTOM_COMMAND(COMMAND "ln -s $PWD/.. $PWD/src")
+dune_add_test(NAME RosiRichards2cDiff
+              SOURCES RosiRichards2cDiff.cc
+              CMAKE_GUARD "( dune-foamgrid_FOUND AND HAVE_UG )")
+dune_symlink_to_source_files(FILES "RosiRichards2cDiff.input")
+set(CMAKE_BUILD_TYPE Release)

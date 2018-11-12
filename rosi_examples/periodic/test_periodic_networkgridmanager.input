@@ -1,0 +1,15 @@
+[Problem]
+Name = periodic
+
+[BoundaryConditions]
+CollarPressure = 0# -1.4e6 # [Pa]
+Source = 0.1
+
+[Grid]
+File = lupine.dgf
+PeriodicBoxLowerLeft = -0.01 -0.03 -1
+PeriodicBoxUpperRight = 0.01 0.01 1
+Periodic = true true false
+
+[Assembly.NumericDifference]
+BaseEpsilon = 1e3
