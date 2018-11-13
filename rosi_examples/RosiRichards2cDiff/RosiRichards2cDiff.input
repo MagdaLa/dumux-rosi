@@ -38,7 +38,7 @@ DiffusionCoefficientMembrane = 1.0e-8
 LiquidDiffusionCoefficient = 2.3e-9
 Name = D2O
 MolarMass = 20e-3 # in kg/mol, molar mass heavy water D2O
-OnlyDiffussionUptake = true
+OnlyDiffusionUptake = true
 
 [BoundaryConditions]
 InitialRootPressure = -1.2e6 # [Pa]

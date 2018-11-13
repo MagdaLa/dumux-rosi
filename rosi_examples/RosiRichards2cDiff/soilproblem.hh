@@ -135,7 +135,7 @@ public:
         const Scalar sw = getParam<Scalar>("Problem.InitTopSaturation", 0.3); // start with 30% saturation on top
         using MaterialLaw = typename GET_PROP_TYPE(TypeTag, SpatialParams)::MaterialLaw;
         pcTop_ = MaterialLaw::pc(this->spatialParams().materialLawParamsAtPos(fvGridGeometry->bBoxMax()), sw);
-        onlyDiffussionUptake_ = getParam<bool>("Component.OnlyDiffussionUptake");
+        onlyDiffusionUptake_ = getParam<bool>("Component.OnlyDiffusionUptake");
         molarMassSolute_ =  getParam<Scalar>("Component.MolarMass");
         diffusionCoefficientMembrane_ =  getParam<Scalar>("Root.SpatialParams.DiffusionCoefficientMembrane");
     }
@@ -270,7 +270,7 @@ public:
 
         //! advective transport over root wall
         // compute correct upwind concentration
-        if (!onlyDiffussionUptake_)
+        if (!onlyDiffusionUptake_)
         {
             if (sourceValues[conti0EqIdx] > 0)
                 sourceValues[transportEqIdx] = sourceValues[conti0EqIdx]*x1D;
@@ -334,7 +334,7 @@ private:
 
     static constexpr Scalar eps_ = 1.5e-7;
     std::string name_;
-    bool onlyDiffussionUptake_;
+    bool onlyDiffusionUptake_;
     Scalar diffusionCoefficientMembrane_, molarMassSolute_;
 
     std::shared_ptr<CouplingManager> couplingManager_;
